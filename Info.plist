@@ -20,6 +20,8 @@
     <true/>
     <key>NSHumanReadableCopyright</key>
     <string>Local use only. No network. No telemetry.</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
 </dict>

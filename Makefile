@@ -16,6 +16,7 @@ bundle: build
 	mkdir -p $(APP_BUNDLE)/Contents/Resources
 	cp $(BINARY) $(APP_BUNDLE)/Contents/MacOS/
 	cp Info.plist $(APP_BUNDLE)/Contents/
+	cp AppIcon.icns $(APP_BUNDLE)/Contents/Resources/
 	codesign --force -s - --entitlements entitlements.plist $(APP_BUNDLE)
 	@echo ""
 	@echo "✓ Built $(APP_BUNDLE)"
