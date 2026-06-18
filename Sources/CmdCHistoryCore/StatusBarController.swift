@@ -1,13 +1,13 @@
 import AppKit
 import ServiceManagement
 
-final class StatusBarController: NSObject, NSMenuDelegate {
+public final class StatusBarController: NSObject, NSMenuDelegate {
     private var statusItem: NSStatusItem?
     private let store = ClipboardStore()
     private let monitor = ClipboardMonitor()
     private let menu = NSMenu()
 
-    func start() {
+    public func start() {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         if let button = statusItem?.button {
             button.image = NSImage(systemSymbolName: "doc.on.clipboard", accessibilityDescription: "Clipboard History")
@@ -21,11 +21,11 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         monitor.start()
     }
 
-    func stop() {
+    public func stop() {
         monitor.stop()
     }
 
-    func menuNeedsUpdate(_ menu: NSMenu) {
+    public func menuNeedsUpdate(_ menu: NSMenu) {
         menu.removeAllItems()
 
         let clips = store.all

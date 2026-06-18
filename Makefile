@@ -3,7 +3,7 @@ BINARY     = .build/release/$(APP_NAME)
 APP_BUNDLE = $(APP_NAME).app
 BUNDLE_ID  = com.local.cmdchistory
 
-.PHONY: all build bundle install open verify clean
+.PHONY: all build bundle install open verify test clean
 
 all: bundle
 
@@ -37,6 +37,9 @@ verify:
 	@echo ""
 	@echo "com.apple.security.app-sandbox=true means kernel blocks all outbound sockets."
 	@echo "com.apple.security.network.client should NOT appear above."
+
+test:
+	swift run TestRunner
 
 clean:
 	rm -rf .build $(APP_BUNDLE)
