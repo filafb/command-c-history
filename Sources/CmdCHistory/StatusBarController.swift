@@ -1,4 +1,5 @@
 import AppKit
+import ServiceManagement
 
 final class StatusBarController: NSObject, NSMenuDelegate {
     private var statusItem: NSStatusItem?
@@ -53,6 +54,11 @@ final class StatusBarController: NSObject, NSMenuDelegate {
         clear.target = self
         menu.addItem(clear)
 
+        let loginItem = NSMenuItem(title: "Launch at Login", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
+        loginItem.target = self
+        loginItem.state = (SMAppService.mainApp.status == .enabled) ? .on : .off
+        menu.addItem(loginItem)
+
         menu.addItem(.separator())
         menu.addItem(NSMenuItem(title: "Quit CmdCHistory", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q"))
     }
@@ -65,5 +71,18 @@ final class StatusBarController: NSObject, NSMenuDelegate {
 
     @objc private func clearHistory() {
         store.clear()
+    }
+
+    @objc private func toggleLaunchAtLogin() {
+        let service = SMAppService.mainApp
+        do {
+            if service.status == .enabled {
+                try service.unregister()
+            } else {
+                try service.register()
+            }
+        } catch {
+            NSLog("CmdCHistory: launch-at-login toggle failed: %@", error.localizedDescription)
+        }
     }
 }
